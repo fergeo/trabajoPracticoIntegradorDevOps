@@ -1,0 +1,97 @@
+.modulos{
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-insumo{
+    text-align: center;
+}
+
+.titulo-insumo-text{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 60px;
+}
+
+.formulario-insumo{
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-left: 200px;
+    padding-bottom: 50px;
+}
+
+.label-input{
+    display: inline-block;
+    width: 150px;
+    font-size: 25px;
+    justify-items: flex-end;
+}
+
+input{
+    width: 500px;
+    height: 30px;
+    border-radius: 5px;
+    border-width: 3px;
+    border-color: blue;
+    text-align: start;
+}
+
+.inputs{
+    padding-bottom: 40px;
+    font-size: 50px;
+}
+
+.botones{
+    text-align: center;
+}
+
+.botones button{
+    width: 200px;
+    height: 50px;
+    background-color: blue;
+    border-radius: 5px;
+    font-size: 30px;
+}
+
+.btn-add{
+    margin-right: 100px;
+}
+
+.button-modificar{
+    display: none;
+}
+
+.volver{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+table, th, td {
+    border: 3px solid blue;
+}
+
+table{
+    border-width: 3px;
+    border-color: blue;
+    margin-left: 60px;
+    margin-right: 40px;
+}
+
+.table-headers{
+    font-size: 30px;
+    text-align: center;
+}
+
+.table-headers tr td{
+    text-align: center;
+}
+
+.btn-volver{
+    width: 400px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: blue;
+    font-size: 30px;
+}

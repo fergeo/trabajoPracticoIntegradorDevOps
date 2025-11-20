@@ -1,0 +1,75 @@
+.cabecera{
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+}
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    padding-left: 50px;
+}
+
+
+.logo-imagen{
+    width: 40%;
+    width: 50px;
+    height: 50px;
+    align-self: self-end;
+}
+
+.administrador{
+    font-size: 25px;
+    align-self: self-end;
+}
+
+.modulos{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: row;
+}
+
+.logout{
+    width: 100%;
+    align-self: self-end;
+    font-size: 25px;
+    justify-content: right;
+}
+
+.logout-text{
+    justify-items: right;
+}
+
+.imagen-modulo{
+    width: 40%;
+    text-align: center;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+    padding-left: 50px;
+}
+
+.botones-modulos{
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    padding-left: 200px;
+}
+
+
+.botones-modulos button{
+    width: 500px;
+    height: 80px;
+    border-radius: 25px;
+    background-color: blue;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}

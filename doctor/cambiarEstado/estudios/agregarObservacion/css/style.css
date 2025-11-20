@@ -1,0 +1,102 @@
+.titulo{
+    text-align: center;
+    width: 50%;
+    padding-top: 80px;
+    font-size: 50px;
+    display: inline-block; 
+    width: fit-content;
+}
+
+.contenedor-principal{
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+.formulario-insumo{
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-left: 200px;
+    padding-bottom: 50px;
+}
+
+.label-input{
+    display: inline-block;
+    width: 150px;
+    font-size: 25px;
+    justify-items: flex-end;
+}
+
+#idReservaTurno{
+    display: none;
+}
+
+input{
+    width: 500px;
+    height: 55px;
+    font-size: 20px;
+    border-radius: 5px;
+    border-width: 3px;
+    border-color: blue;
+    text-align: start;
+}
+
+textarea{
+    font-size: 20px;
+}
+
+.inputs{
+    padding-bottom: 10px;
+    font-size: 50px;
+}
+
+.botones{
+    padding-top: 50px;
+    text-align: center;
+}
+
+.btn-cerar{
+    width: 400px;
+    height: 50px;
+    background-color: blue;
+    border-radius: 5px;
+    font-size: 30px;
+}
+
+
+.volver{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+table, th, td {
+    border: 3px solid blue;
+}
+
+table{
+    border-width: 3px;
+    border-color: blue;
+    margin-left: 60px;
+    margin-right: 40px;
+}
+
+.table-headers{
+    font-size: 30px;
+    text-align: center;
+}
+
+.table-headers tr td{
+    text-align: center;
+}
+
+.btn-volver{
+    width: 400px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: blue;
+    font-size: 30px;
+}

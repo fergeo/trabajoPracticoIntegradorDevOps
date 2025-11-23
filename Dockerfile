@@ -1,5 +1,4 @@
-# Dockerfile corregido: Separación de PHP-FPM y Nginx recomendada
-# Esta versión solo levanta PHP-FPM; Nginx debe ir en un contenedor aparte.
+# Dockerfile: PHP-FPM para Proyecto Clínica
 
 # Imagen base PHP-FPM
 FROM php:8.2-fpm

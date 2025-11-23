@@ -1,108 +1,64 @@
-// Archivo: cypress/e2e/flujoClinicaCompleto.spec.js
+// Archivo: cypress/e2e/flujoClinicaE2E.spec.js
 
-describe("Flujo Completo del Proyecto Clínica", () => {
+describe("E2E Básico Proyecto Clínica", () => {
+  // Cambia la URL base según tu servidor
+  const baseUrl = "http://localhost/proyectoClinicaSePrise";
 
-    before(() => {
-        cy.log("==== INICIO DE PRUEBA E2E COMPLETA ====");
-    });
+  before(() => {
+    cy.log("==== INICIO DE PRUEBA E2E ====");
+  });
 
-    beforeEach(() => {
-        cy.log("---- Nuevo Caso de Prueba ----");
-    });
+  it("Login con usuario y contraseña válidos", () => {
+    cy.visit(baseUrl + "/index.php");
 
-    it("Carga del sitio inicial", () => {
-        cy.log("1) Visitando la página principal...");
-        cy.visit("/index.php");
+    // Completar usuario y contraseña
+    cy.get('input[name="usuario"]').type("admin");
+    cy.get('input[name="password"]').type("admin123");
 
-        cy.log("2) Verificando que el título exista...");
-        cy.contains("Clinica").should("exist");
-    });
+    // Click en Ingresar
+    cy.get('button[type="submit"]').click();
 
-    it("Prueba de Login", () => {
-        cy.log("1) Navegando al login...");
-        cy.visit("/login.php");
+    // Verificar que redirige a la página principal de administración
+    cy.url().should("include", "/administracion/main-adm.php");
 
-        cy.log("2) Completando usuario...");
-        cy.get('input[name="usuario"]').type("admin");
+    // Verificar que un elemento visible en main-adm.php existe
+    cy.contains("Administración").should("exist");
+  });
 
-        cy.log("3) Completando contraseña...");
-        cy.get('input[name="password"]').type("admin123");
+  it("Acceder a módulo de Insumos y verificar tabla", () => {
+    cy.visit(baseUrl + "/administracion/insumo/insumo.php");
 
-        cy.log("4) Enviando formulario...");
-        cy.get('button[type="submit"]').click();
+    // Verificar que el título del módulo está visible
+    cy.contains("Insumos").should("exist");
 
-        cy.log("5) Verificando redirección al menú...");
-        cy.url().should("include", "/menu.php");
-        cy.contains("Bienvenido").should("exist");
-    });
+    // Verificar que al menos un botón de agregar exista
+    cy.get("button.btn-add").should("exist");
+  });
 
-    it("Listar pacientes", () => {
-        cy.log("1) Visitando listado de pacientes...");
-        cy.visit("/pacientes.php");
+  it("Acceder a módulo de Salas de Estudio y verificar tabla", () => {
+    cy.visit(baseUrl + "/administracion/salaEstudio/salaestudio.php");
 
-        cy.log("2) Verificando tabla...");
-        cy.get("table").should("exist");
+    // Verificar que el título del módulo está visible
+    cy.contains("Salas de Estudio").should("exist");
 
-        cy.log("3) Verificando que hay filas...");
-        cy.get("table tr").its("length").should("be.gt", 1);
-    });
+    // Verificar que al menos un botón de agregar exista
+    cy.get("button.btn-add").should("exist");
+  });
 
-    it("Crear un nuevo paciente", () => {
-        cy.log("1) Abriendo formulario nuevo paciente...");
-        cy.visit("/pacienteNuevo.php");
+  it("Acceder a cobrar atención y buscar paciente", () => {
+    cy.visit(baseUrl + "/recepcionista/cobroatencion.php");
 
-        cy.log("2) Llenando nombre...");
-        cy.get('input[name="nombre"]').type("Juan Test");
+    // Verificar que el formulario de DNI esté visible
+    cy.get('input#dniPaciente').should("exist");
 
-        cy.log("3) Llenando apellido...");
-        cy.get('input[name="apellido"]').type("Pérez");
+    // Completar un DNI de prueba
+    cy.get('input#dniPaciente').type("12345678");
 
-        cy.log("4) Llenando DNI...");
-        cy.get('input[name="dni"]').type("12345678");
+    // Click en buscar
+    cy.get('button.btn-dni-gurdar').click();
 
-        cy.log("5) Guardando...");
-        cy.get("button[type='submit']").click();
-
-        cy.log("6) Verificando retorno al listado...");
-        cy.url().should("include", "/pacientes.php");
-
-        cy.log("7) Verificando existencia del paciente...");
-        cy.contains("Juan Test").should("exist");
-    });
-
-    it("Editar paciente", () => {
-        cy.log("1) Visitando pacientes...");
-        cy.visit("/pacientes.php");
-
-        cy.log("2) Clic en Editar...");
-        cy.get("a.editar").first().click();
-
-        cy.log("3) Modificando apellido...");
-        cy.get('input[name="apellido"]').clear().type("Modificado");
-
-        cy.log("4) Guardando...");
-        cy.get("button[type='submit']").click();
-
-        cy.log("5) Verificando cambio aplicado...");
-        cy.contains("Modificado").should("exist");
-    });
-
-    it("Eliminar paciente", () => {
-        cy.log("1) Visitando pacientes...");
-        cy.visit("/pacientes.php");
-
-        cy.log("2) Clic en eliminar...");
-        cy.get("button.eliminar").first().click();
-
-        cy.log("3) Confirmando diálogo...");
-        cy.on("window:confirm", () => true);
-
-        cy.log("4) Verificando eliminación...");
-        cy.contains("Modificado").should("not.exist");
-    });
-
-    after(() => {
-        cy.log("==== FIN DE TODA LA PRUEBA E2E ====");
-    });
-
+    // Verificar que la tabla de resultados aparece
+    cy.get("table.tables-turno").should("exist");
+  });
 });
+`

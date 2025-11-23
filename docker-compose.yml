@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+
+  # Contenedor PHP-FPM
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clinica_php
+    volumes:
+      - ./proyectoClinicaSePrise:/var/www/html:cached
+    expose:
+      - "9000"
+    networks:
+      - red-clinica
+
+  # Contenedor Nginx
+  nginx:
+    image: nginx:latest
+    container_name: clinica_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./proyectoClinicaSePrise:/var/www/html:cached
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:cached
+    depends_on:
+      - php
+    networks:
+      - red-clinica
+
+  # Contenedor MySQL con inicialización automática
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_clinica
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: clinicaMedicaSePrise
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+    ports:
+      - "3314:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - red-clinica
+
+volumes:
+  db_data:
+
+networks:
+  red-clinica:
+    driver: bridge

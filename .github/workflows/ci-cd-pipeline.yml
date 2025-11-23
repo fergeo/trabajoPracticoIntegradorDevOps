@@ -1,0 +1,55 @@
+name: CI/CD Pipeline Proyecto Clínica
+
+# Se ejecuta en cada push o pull request a la rama main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test-docker-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clonar el repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Configurar Node.js (para Cypress)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # 3. Instalar dependencias Node
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Ejecutar tests con Cypress
+      - name: Run Cypress tests
+        run: npx cypress run --headless
+
+      # 5. Build de la app (si aplica)
+      - name: Build app
+        run: echo "Build completado"
+
+      # 6. Construir imagen Docker
+      - name: Build Docker image
+        run: docker build -t usuario/proyecto-clinica:latest .
+
+      # 7. Login en Docker Hub
+      - name: Docker login
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      # 8. Push Docker image
+      - name: Push Docker image to Docker Hub
+        run: docker push usuario/proyecto-clinica:latest
+
+      # 9. Deploy a Heroku
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "nombre-de-tu-app-heroku"
+          heroku_email: "tu-email@example.com"

@@ -30,23 +30,19 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run --headless
 
-      # 5. Build de la app (si aplica)
-      - name: Build app
-        run: echo "Build completado"
-
-      # 6. Construir imagen Docker
+      # 5. Construir imagen Docker
       - name: Build Docker image
-        run: docker build -t usuario/proyecto-clinica:latest .
+        run: docker build -t fernandogespindolao/proyecto-clinica:latest .
 
-      # 7. Login en Docker Hub
+      # 6. Login en Docker Hub
       - name: Docker login
-        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u fernandogespindolao --password-stdin
 
-      # 8. Push Docker image
-      - name: Push Docker image to Docker Hub
-        run: docker push usuario/proyecto-clinica:latest
+      # 7. Push Docker image a Docker Hub
+      - name: Push Docker image
+        run: docker push fernandogespindolao/proyecto-clinica:latest
 
-      # 9. Deploy a Heroku
+      # 8. Despliegue a Heroku
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
